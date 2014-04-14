@@ -2,11 +2,12 @@
 <html class="no-js" lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <title>FollowforFollow</title>
         <meta name="description" content="Free instagram followers : you follow, they follow you back. No subscription, very easy !">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="icon" href="img/favicon.ico">
         <script src="js/vendor/modernizr-2.7.1.min.js"></script>
     </head>
     <body>
@@ -16,12 +17,12 @@
         <div class="container-fluid">
             <div class="row">                
                 <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid red">
-                    <img id="logo" width="100%" src="img/followforfollow.png" alt="followforfollow logo">
+                    <img id="logo" style="width:100%" src="img/followforfollow.png" alt="followforfollow logo">
                 </div>
             </div>
             
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3"style="border:1px solid blue">Button / Form for subscriptions</div>
+                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid blue">Button / Form for subscriptions</div>
             </div>
             
             <div class="row">
