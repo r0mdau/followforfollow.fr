@@ -15,7 +15,9 @@
         <![endif]-->
         <div class="container-fluid">
             <div class="row">                
-                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid red">Logo Here</div>
+                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid red">
+                    <img id="logo" width="100%" src="img/followforfollow.png" alt="followforfollow logo">
+                </div>
             </div>
             
             <div class="row">
