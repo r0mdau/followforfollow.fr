@@ -13,8 +13,23 @@
         <!--[if lt IE 8]>
             <p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-        <p>Hello world!</p>
+        <div class="container-fluid">
+            <div class="row">                
+                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid red">Logo Here</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3"style="border:1px solid blue">Button / Form for subscriptions</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid green">List of igers</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid yellow">Footer / Copyrights</div>
+            </div>
+        </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
