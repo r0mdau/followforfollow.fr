@@ -19,7 +19,8 @@ window.fakeStorage = {
 };
 
 function LocalStorageManager() {
-  this.tokenKey     = "token";
+  this.tokenKey = "token";
+  this.userKey = "user";
 
   var supported = this.localStorageSupported();
   this.storage = supported ? window.localStorage : window.fakeStorage;
@@ -38,15 +39,24 @@ LocalStorageManager.prototype.localStorageSupported = function () {
   }
 };
 
-// Best score getters/setters
+LocalStorageManager.prototype.removeAll = function () {
+  this.storage.removeItem(this.tokenKey);
+  this.storage.removeItem(this.userKey);
+};
+
 LocalStorageManager.prototype.getToken = function () {
   return this.storage.getItem(this.tokenKey) || 0;
 };
 
-LocalStorageManager.prototype.setToken = function (tokenValue) {
-  this.storage.setItem(this.tokenKey, tokenValue);
+LocalStorageManager.prototype.setToken = function (token) {
+  this.storage.setItem(this.tokenKey, token);
 };
 
-LocalStorageManager.prototype.removeToken = function () {
-  this.storage.removeItem(this.tokenKey);
+LocalStorageManager.prototype.getUser = function () {
+  return JSON.parse(this.storage.getItem(this.userKey)) || 0;
+};
+
+LocalStorageManager.prototype.setUser = function (user) {
+  var jsonUser = JSON.stringify(user);
+  this.storage.setItem(this.userKey, jsonUser);
 };
