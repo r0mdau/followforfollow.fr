@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
+<!doctype html>
+<html lang="en" ng-app="fffApplication">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -8,7 +8,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="icon" href="img/favicon.ico">
-        <script src="js/vendor/modernizr-2.7.1.min.js"></script>
+            
+        <script src="js/vendor/modernizr-2.7.1.min.js"></script>        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//code.angularjs.org/1.2.16/angular.min.js"></script>
+        <script src="//code.angularjs.org/1.2.16/angular-route.min.js"></script>
+        <script src="//code.angularjs.org/1.2.16/angular-resource.min.js"></script>
+        
+        <script src="js/application/fffApplication.js"></script>
+        <script src="js/application/controller/fffControllers.js"></script>
+        <script src="js/application/controller/fffHomeController.js"></script>
+        <script src="js/application/controller/fffTokenController.js"></script>
+        <script src="js/application/controller/fffMainController.js"></script>
+        
+        <script src="js/localStorageManager.js"></script>
+        <script>
+            var storage = new LocalStorageManager();
+        </script>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -20,25 +36,13 @@
                     <img id="logo" style="width:100%" src="img/followforfollow.png" alt="followforfollow logo">
                 </div>
             </div>
-            
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid blue">
-                    <a href="https://instagram.com/oauth/authorize/?client_id=6d8d64686f04484bb54cf7bbf8ddcd15&redirect_uri=http://followforfollow.dev/token/&response_type=token&scope=likes+comments+relationships+basic">
-                        <button class="btn btn-large">Login</button>
-                    </a>
-                </div>
+            <div ng-controller="fffHomeController">
+                {{greeting}}
+                <div ng-view></div>
             </div>
-            
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid green">List of igers</div>
-            </div>
-            
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="border:1px solid yellow">Footer / Copyrights</div>
+                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">Footer / Copyrights</div>
             </div>
         </div>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
     </body>
 </html>
