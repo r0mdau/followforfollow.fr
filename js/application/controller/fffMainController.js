@@ -1,9 +1,11 @@
-fffControllers.controller('fffMainController', ['$scope', '$location', '$http',
-  function ($scope, $location, $http) {
+'use strict';
+
+fffControllers.controller('fffMainController', ['$scope', '$location', '$http', 'fffStorage',
+  function ($scope, $location, $http, fffStorage) {
     
     $scope.signOut = function(){
-        if(storage.getToken() !== 0){
-            storage.removeAll();
+        if(fffStorage.getToken() !== 0){
+            fffStorage.removeAll();
         }
         $location.path("/home");
     }
@@ -11,12 +13,12 @@ fffControllers.controller('fffMainController', ['$scope', '$location', '$http',
     
     $.ajax({
         dataType: "jsonp",
-        url: "https://api.instagram.com/v1/users/self?access_token="+storage.getToken(),
+        url: "https://api.instagram.com/v1/users/self?access_token="+fffStorage.getToken(),
         success: function( data ) {
             $scope.$apply(function () {
                 $scope.username = data.data.username;                
             });
-            storage.setUser(data.data);
+            fffStorage.setUser(data.data);
         }
     });    
   }]);

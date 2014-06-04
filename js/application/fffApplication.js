@@ -1,3 +1,5 @@
+'use strict';
+
 var fffApplication = angular.module('fffApplication', [
   'ngRoute',
   'fffControllers'
