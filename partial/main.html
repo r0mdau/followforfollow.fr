@@ -1,7 +1,19 @@
-<div class="row">
-    <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
-        Hello {{username}}
-        <button class='btn btn-large btn-info' ng-click="signOut()">Sign out</button>
+<div class="row welcome">
+    <div class="col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3">
+        <div id="profilePicture">
+            
+        </div>
+    </div>
+    <div class="col-sm-2 col-md-2">
+        <h1 style="margin-top: 15%">
+            Hello {{username}}
+        </h1>
+    </div>
+    <div class="col-sm-2 col-md-2">
+        <h3>
+            {{bio}}
+        </h3>
+        <button class='btn btn-large btn-danger' ng-click="signOut()">Sign out</button>
     </div>
 </div>
 

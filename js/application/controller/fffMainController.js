@@ -5,7 +5,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', '$http', 
     
     $scope.signOut = function(){
         if(fffStorage.getToken() !== 0){
-            fffStorage.removeAll();
+          fffStorage.removeAll();
         }
         $location.path("/home");
     }
@@ -16,7 +16,9 @@ fffControllers.controller('fffMainController', ['$scope', '$location', '$http', 
         url: "https://api.instagram.com/v1/users/self?access_token="+fffStorage.getToken(),
         success: function( data ) {
             $scope.$apply(function () {
-                $scope.username = data.data.username;                
+                $scope.username = data.data.username;
+                $scope.bio= data.data.bio;
+                $('#profilePicture').html('<img src="' + data.data.profile_picture + '" alt="' + data.data.username + '">');
             });
             fffStorage.setUser(data.data);
         }
