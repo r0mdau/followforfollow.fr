@@ -1,12 +1,10 @@
 'use strict';
 
-fffControllers.controller('fffMainController', ['$scope', '$location', '$http', 'fffInstagram', 'fffStorage',
-  function ($scope, $location, $http, fffInstagram, fffStorage) {
+fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInstagram', 'fffStorage',
+  function ($scope, $location, fffInstagram, fffStorage) {
     
     $scope.signOut = function(){
-        if(fffStorage.getToken() !== 0){
-          fffStorage.removeAll();
-        }
+        fffStorage.removeAll();
         $location.path("/home");
     }    
        
