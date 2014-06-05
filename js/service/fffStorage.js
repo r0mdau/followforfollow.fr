@@ -31,11 +31,9 @@ fffControllers.factory('fffStorage', function () {
 		},
 		
 		removeAll: function () {
-			for(var index in keys) { 
-				if (keys.hasOwnProperty(index)) {
-					localStorage.removeItem(keys[index]);
-				}
-			}
+			angular.forEach(keys, function(value, key) {
+				localStorage.removeItem(value);
+			});
 		},
 		
 		removeStats: function () {
