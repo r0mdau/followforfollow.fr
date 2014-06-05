@@ -19,14 +19,34 @@
 
 <div class="row page-header">
     <div id="mainContent" class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+        <h2>Go stats
+            <button class="btn btn-large" ng-click="refreshStatsInStorage()">Refresh</button>
+        </h2>
         <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="">Followers gained</a>
+            <li>
+                <a href="">Followers</a>
             </li>
-            <li><a href="">Followers lost</a></li>
+            <li class="active"><a href="">Following</a></li>
             <li><a href="">Are not following back</a></li>
             <li><a href="">You not following back</a></li>
         </ul>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Picture</th>
+                    <th>Username</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="user in users">
+                <td><img src="{{user.profile_picture}}" alt="{{user.username}}" width="75"></td>
+                <td>
+                    <h3>{{user.username}}</h3>
+                    <small>{{user.full_name}}</small>
+                </td>
+                <td><button class="btn {{user.follows}}">+</button></td>
+            </tr>
+        </table>
     </div>
     <script>
         $(document).ready(function(){

@@ -30,6 +30,14 @@ fffControllers.factory('fffStorage', function () {
 			localStorage.setItem(keys.user, JSON.stringify(user));
 		},
 		
+		getFollowers: function () {
+			return JSON.parse(localStorage.getItem(keys.followers) || '[]');
+		},
+
+		setFollowers: function (followers) {
+			localStorage.setItem(keys.followers, JSON.stringify(followers));
+		},	
+		
 		removeAll: function () {
 			angular.forEach(keys, function(value, key) {
 				localStorage.removeItem(value);
