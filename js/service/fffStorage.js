@@ -2,29 +2,49 @@
 
 
 fffControllers.factory('fffStorage', function () {
-	var tokenKey = "token";
-	var userKey = "user";
+	var keys = {
+	  token : 'token',
+	  user : 'user',	
+	  followers : 'followers',
+	  following : 'following',
+	  followersGained : 'followersGained',
+	  followersLost : 'followersLost',
+	  areNotFollowingBack : 'areNotFollowingBack',
+	  youNotFollowingBack : 'youNotFollowingBack'
+	}
 
 	return {
 		getToken: function () {
-			return JSON.parse(localStorage.getItem(tokenKey) || '[]');
+			return JSON.parse(localStorage.getItem(keys.token) || '[]');
 		},
 
 		setToken: function (token) {
-			localStorage.setItem(tokenKey, JSON.stringify(token));
+			localStorage.setItem(keys.token, JSON.stringify(token));
 		},
 		
 		getUser: function () {
-			return JSON.parse(localStorage.getItem(userKey) || '[]');
+			return JSON.parse(localStorage.getItem(keys.user) || '[]');
 		},
 
 		setUser: function (user) {
-			localStorage.setItem(userKey, JSON.stringify(user));
+			localStorage.setItem(keys.user, JSON.stringify(user));
 		},
 		
 		removeAll: function () {
-			localStorage.removeItem(tokenKey);
-			localStorage.removeItem(userKey);
+			for(var index in keys) { 
+				if (keys.hasOwnProperty(index)) {
+					localStorage.removeItem(keys[index]);
+				}
+			}
+		},
+		
+		removeStats: function () {
+			localStorage.removeItem(keys.followers);
+			localStorage.removeItem(keys.following);
+			localStorage.removeItem(keys.followersGained);
+			localStorage.removeItem(keys.followersLost);
+			localStorage.removeItem(keys.areNotFollowingBack);
+			localStorage.removeItem(keys.youNotFollowingBack);
 		}
 	};
 });
