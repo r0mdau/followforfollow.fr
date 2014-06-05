@@ -1,4 +1,4 @@
-<div class="row welcome">
+<div class="row page-header">
     <div class="col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3">
         <div id="profilePicture">
             
@@ -11,12 +11,29 @@
     </div>
     <div class="col-sm-2 col-md-2">
         <h3>
-            {{bio}}
+            <small>{{bio}}</small>        
         </h3>
         <button class='btn btn-large btn-danger' ng-click="signOut()">Sign out</button>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">List of igers</div>
+<div class="row page-header">
+    <div id="mainContent" class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="">Followers gained</a>
+            </li>
+            <li><a href="">Followers lost</a></li>
+            <li><a href="">Are not following back</a></li>
+            <li><a href="">You not following back</a></li>
+        </ul>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('#mainContent ul li a').click(function(){
+                $('#mainContent ul li').removeClass('active');
+                $(this).parent().addClass('active');
+            });
+        });
+    </script>
 </div>
