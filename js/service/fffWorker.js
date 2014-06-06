@@ -26,11 +26,15 @@ fffControllers.factory('fffWorker', ['fffStorage', 'fffInstagram',
 						if(response.data.outgoing_status == 'follows')
 							status = 'btn-success';
 						
-						var followers = [];
+						var followers = [];						
+						
 						angular.forEach(fffStorage.getFollowers(), function(follow, keyf) {
 							if(follower.id == follow.id){
 								follow.follows = status;
-							}							
+								if(status == 'btn-danger'){
+									fffStorage.addYouNotFollowingBack(follow);
+								}
+							}	
 							followers.push(follow);
 						});
 						fffStorage.setFollowers(followers);

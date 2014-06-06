@@ -19,6 +19,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     $scope.users = fffStorage.getFollowers();
     
     $scope.refreshStatsInStorage = function(){
+        fffStorage.clearYouNotFollowingBack();
         fffWorker.setFollowers($scope.currentUser.id).then(function(){
             fffWorker.setFollowersRelationship().then(function(){
                 $scope.users = fffStorage.getFollowers();
@@ -33,5 +34,8 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     
     $scope.showFollowing = function(){
         $scope.users = fffStorage.getFollowing();
+    }
+    $scope.showYouNotFollowingBack = function(){
+        $scope.users = fffStorage.getYouNotFollowingBack();
     }
   }]);

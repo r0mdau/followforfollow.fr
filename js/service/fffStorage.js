@@ -46,6 +46,24 @@ fffControllers.factory('fffStorage', function () {
 			localStorage.setItem(keys.following, JSON.stringify(following));
 		},
 		
+		getYouNotFollowingBack: function (){
+			return JSON.parse(localStorage.getItem(keys.youNotFollowingBack) || '[]');
+		},
+		
+		addYouNotFollowingBack: function (follow) {
+			var users = JSON.parse(localStorage.getItem(keys.youNotFollowingBack) || '[]');
+			var tab = [];			
+			angular.forEach(users, function(user, key) {
+				tab.push(user);
+			});
+			tab.push(follow);
+			localStorage.setItem(keys.youNotFollowingBack, JSON.stringify(tab));
+		},
+		
+		clearYouNotFollowingBack: function (noFollowingBack) {
+			localStorage.removeItem(keys.youNotFollowingBack);
+		},
+		
 		removeAll: function () {
 			angular.forEach(keys, function(value, key) {
 				localStorage.removeItem(value);
