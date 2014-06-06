@@ -20,6 +20,18 @@ fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
 			},
 			
 			'getFollowers' : function(userId){
+				var request = '/users/' + userId +'/followed-by?access_token='+fffStorage.getToken();
+				var url = base + request;
+				var config = {
+					'params': {
+						'client_id': clientId,
+						'callback': 'JSON_CALLBACK'
+					}
+				};
+				return $http.jsonp(url, config);
+			},
+			
+			'getFollowing' : function(userId){
 				var request = '/users/' + userId +'/follows?access_token='+fffStorage.getToken();
 				var url = base + request;
 				var config = {

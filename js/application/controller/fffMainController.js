@@ -22,5 +22,14 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         fffWorker.setFollowers($scope.currentUser.id).then(function(){
             $scope.users = fffStorage.getFollowers();
         });
+        fffWorker.setFollowing($scope.currentUser.id);
+    }
+    
+    $scope.showFollowers = function(){
+        $scope.users = fffStorage.getFollowers();
+    }
+    
+    $scope.showFollowing = function(){
+        $scope.users = fffStorage.getFollowing();
     }
   }]);

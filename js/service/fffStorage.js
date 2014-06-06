@@ -36,7 +36,15 @@ fffControllers.factory('fffStorage', function () {
 
 		setFollowers: function (followers) {
 			localStorage.setItem(keys.followers, JSON.stringify(followers));
-		},	
+		},
+		
+		getFollowing: function () {
+			return JSON.parse(localStorage.getItem(keys.following) || '[]');
+		},
+
+		setFollowing: function (following) {
+			localStorage.setItem(keys.following, JSON.stringify(following));
+		},
 		
 		removeAll: function () {
 			angular.forEach(keys, function(value, key) {
