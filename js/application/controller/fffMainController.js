@@ -50,7 +50,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         }        
     });
     
-    $scope.refreshStatsInStorage = function(){      
+    $scope.refreshStatsInStorage = function(){
         $scope.followers = [];
         fffStorage.clearYouNotFollowingBack();
         
@@ -77,17 +77,20 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
             
             angular.forEach(fffStorage.getFollowing(), function(following, key) {
                 fffInstagram.getRelationship(following.id).success(function(response){
-                    var status = 'btn-danger'
+                    var status = 'btn-success'
                     if(response.data.incoming_status == 'followed_by')
-                        status = 'btn-success';
+                        status = 'btn-danger';
                     
                     following.follows = status;
-                    if(status == 'btn-danger'){
+                    if(status == 'btn-success'){
                         $scope.areNotFollowingBack = following;
                     }
                 });
             });
         });
+        
+        $('#mainContent li').removeClass('active');
+        $('#showFollowers').addClass('active');
     }
     
     $scope.showFollowers = function(){
