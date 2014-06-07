@@ -54,8 +54,20 @@ fffControllers.factory('fffStorage', function () {
 			localStorage.setItem(keys.youNotFollowingBack, JSON.stringify(user));
 		},
 		
-		clearYouNotFollowingBack: function (noFollowingBack) {
+		clearYouNotFollowingBack: function () {
 			localStorage.removeItem(keys.youNotFollowingBack);
+		},
+		
+		getAreNotFollowingBack: function (){
+			return JSON.parse(localStorage.getItem(keys.areNotFollowingBack) || '[]');
+		},
+		
+		setAreNotFollowingBack: function (user) {
+			localStorage.setItem(keys.areNotFollowingBack, JSON.stringify(user));
+		},
+		
+		clearAreNotFollowingBack: function () {
+			localStorage.removeItem(keys.areNotFollowingBack);
 		},
 		
 		removeAll: function () {

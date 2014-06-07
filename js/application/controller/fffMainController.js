@@ -19,9 +19,14 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     $scope.users = fffStorage.getFollowers();
     $scope.followers = [];
     $scope.follower = '';
-    $scope.followersCount = 0;
-    
+    $scope.followersCount = 0;    
     $scope.youNotFollowingBacks = [];
+    
+    $scope.followingCount = 0;
+    $scope.followings = [];
+    $scope.following = '';
+    $scope.areNotFollowingBacks = [];
+
     
     $scope.$watch('follower', function() {
         $scope.followers.push($scope.follower);        
@@ -36,9 +41,16 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
             $scope.youNotFollowingBacks.push($scope.youNotFollowingBack);
             fffStorage.setYouNotFollowingBack($scope.youNotFollowingBacks);
         }        
-    });    
+    });
     
-    $scope.refreshStatsInStorage = function(){        
+    $scope.$watch('areNotFollowingBack', function() {
+        if($scope.areNotFollowingBack === Object($scope.areNotFollowingBack)){
+            $scope.areNotFollowingBacks.push($scope.areNotFollowingBack);
+            fffStorage.setAreNotFollowingBack($scope.areNotFollowingBacks);
+        }        
+    });
+    
+    $scope.refreshStatsInStorage = function(){      
         $scope.followers = [];
         fffStorage.clearYouNotFollowingBack();
         
@@ -61,18 +73,33 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         });
         
         fffWorker.setFollowing($scope.currentUser.id).then(function(){
+            $scope.followingCount = fffStorage.getFollowing().length;
             
+            angular.forEach(fffStorage.getFollowing(), function(following, key) {
+                fffInstagram.getRelationship(following.id).success(function(response){
+                    var status = 'btn-danger'
+                    if(response.data.incoming_status == 'followed_by')
+                        status = 'btn-success';
+                    
+                    following.follows = status;
+                    if(status == 'btn-danger'){
+                        $scope.areNotFollowingBack = following;
+                    }
+                });
+            });
         });
     }
     
     $scope.showFollowers = function(){
         $scope.users = fffStorage.getFollowers();
     }
-    
     $scope.showFollowing = function(){
         $scope.users = fffStorage.getFollowing();
     }
     $scope.showYouNotFollowingBack = function(){
         $scope.users = fffStorage.getYouNotFollowingBack();
+    }
+    $scope.showAreNotFollowingBack = function(){
+        $scope.users = fffStorage.getAreNotFollowingBack();
     }
   }]);
