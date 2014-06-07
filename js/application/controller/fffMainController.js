@@ -23,17 +23,32 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     $scope.youNotFollowingBacks = [];
     
     $scope.followingCount = 0;
-    $scope.followings = [];
-    $scope.following = '';
+    $scope.followingCounter = 0;
     $scope.areNotFollowingBacks = [];
+    
+    function progressBar(pourcent){        
+        if(pourcent >= 99){
+            setTimeout(function() {
+                $('.progress-bar').parent().addClass('hide');
+                $('.progress-bar').attr({ style : 'width: 0%'})
+            }, 2000);            
+        }else{
+            $('.progress-bar').attr({ style : 'width:' + pourcent + '%'})
+        }
+    }
 
     
     $scope.$watch('follower', function() {
+        progressBar(parseInt(($scope.followers.length / ($scope.followersCount * 2)) * 100));
         $scope.followers.push($scope.follower);        
         if($scope.followers.length == $scope.followersCount){
             $scope.users = $scope.followers;
             fffStorage.setFollowers($scope.followers);
         }
+    });
+    
+    $scope.$watch('followingCounter', function() {
+        progressBar(parseInt(($scope.followingCounter / ($scope.followingCount * 2)) * 100) + 50);        
     });
     
     $scope.$watch('youNotFollowingBack', function() {
@@ -45,12 +60,14 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     
     $scope.$watch('areNotFollowingBack', function() {
         if($scope.areNotFollowingBack === Object($scope.areNotFollowingBack)){
+            //progressBar(parseInt(($scope.followers.length / $scope.followersCount * 2) * 100));
             $scope.areNotFollowingBacks.push($scope.areNotFollowingBack);
             fffStorage.setAreNotFollowingBack($scope.areNotFollowingBacks);
         }        
     });
     
     $scope.refreshStatsInStorage = function(){
+        $('.progress-bar').parent().removeClass('hide');
         $scope.followers = [];
         fffStorage.clearYouNotFollowingBack();
         
@@ -85,6 +102,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
                     if(status == 'btn-success'){
                         $scope.areNotFollowingBack = following;
                     }
+                    $scope.followingCounter++;
                 });
             });
         });
