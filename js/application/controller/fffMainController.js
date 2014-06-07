@@ -17,15 +17,52 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     });
     
     $scope.users = fffStorage.getFollowers();
+    $scope.followers = [];
+    $scope.follower = '';
+    $scope.followersCount = 0;
     
-    $scope.refreshStatsInStorage = function(){
+    $scope.youNotFollowingBacks = [];
+    
+    $scope.$watch('follower', function() {
+        $scope.followers.push($scope.follower);        
+        if($scope.followers.length == $scope.followersCount){
+            $scope.users = $scope.followers;
+            fffStorage.setFollowers($scope.followers);
+        }
+    });
+    
+    $scope.$watch('youNotFollowingBack', function() {
+        if($scope.youNotFollowingBack === Object($scope.youNotFollowingBack)){
+            $scope.youNotFollowingBacks.push($scope.youNotFollowingBack);
+            fffStorage.setYouNotFollowingBack($scope.youNotFollowingBacks);
+        }        
+    });    
+    
+    $scope.refreshStatsInStorage = function(){        
+        $scope.followers = [];
         fffStorage.clearYouNotFollowingBack();
+        
         fffWorker.setFollowers($scope.currentUser.id).then(function(){
-            fffWorker.setFollowersRelationship().then(function(){
-                $scope.users = fffStorage.getFollowers();
+            $scope.followersCount = fffStorage.getFollowers().length;
+            
+            angular.forEach(fffStorage.getFollowers(), function(follower, key) {
+                fffInstagram.getRelationship(follower.id).success(function(response){
+                    var status = 'btn-danger'
+                    if(response.data.outgoing_status == 'follows')
+                        status = 'btn-success';
+                    
+                    follower.follows = status;
+                    $scope.follower = follower;
+                    if(status == 'btn-danger'){
+                        $scope.youNotFollowingBack = follower;
+                    }
+                });
             });
         });
-        fffWorker.setFollowing($scope.currentUser.id);
+        
+        fffWorker.setFollowing($scope.currentUser.id).then(function(){
+            
+        });
     }
     
     $scope.showFollowers = function(){

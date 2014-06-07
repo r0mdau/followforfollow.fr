@@ -18,31 +18,6 @@ fffControllers.factory('fffWorker', ['fffStorage', 'fffInstagram',
 				});
 			},
 			
-			'setFollowersRelationship': function(){
-				var promise = null;
-				angular.forEach(fffStorage.getFollowers(), function(follower, key) {
-					promise = fffInstagram.getRelationship(follower.id).success(function(response){
-						var status = 'btn-danger'
-						if(response.data.outgoing_status == 'follows')
-							status = 'btn-success';
-						
-						var followers = [];						
-						
-						angular.forEach(fffStorage.getFollowers(), function(follow, keyf) {
-							if(follower.id == follow.id){
-								follow.follows = status;
-								if(status == 'btn-danger'){
-									fffStorage.addYouNotFollowingBack(follow);
-								}
-							}	
-							followers.push(follow);
-						});
-						fffStorage.setFollowers(followers);
-					});
-				});
-				return promise;
-			},
-			
 			'setFollowing': function(userId) {
 				return fffInstagram.getFollowing(userId).success(function(response){
 					var followers = [];

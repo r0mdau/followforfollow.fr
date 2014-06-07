@@ -50,14 +50,8 @@ fffControllers.factory('fffStorage', function () {
 			return JSON.parse(localStorage.getItem(keys.youNotFollowingBack) || '[]');
 		},
 		
-		addYouNotFollowingBack: function (follow) {
-			var users = JSON.parse(localStorage.getItem(keys.youNotFollowingBack) || '[]');
-			var tab = [];			
-			angular.forEach(users, function(user, key) {
-				tab.push(user);
-			});
-			tab.push(follow);
-			localStorage.setItem(keys.youNotFollowingBack, JSON.stringify(tab));
+		setYouNotFollowingBack: function (user) {
+			localStorage.setItem(keys.youNotFollowingBack, JSON.stringify(user));
 		},
 		
 		clearYouNotFollowingBack: function (noFollowingBack) {
