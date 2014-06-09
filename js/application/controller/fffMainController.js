@@ -9,12 +9,17 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     }    
        
     fffInstagram.getUser().success(function(response) {
-        $scope.followersCount = response.data.counts.followed_by;
-        $scope.followingsCount = response.data.counts.follows;
+        $scope.followersCount = parseInt(response.data.counts.followed_by);
+        $scope.followingCount = parseInt(response.data.counts.follows);
+        //For scrollbars
+        $scope.total = $scope.followersCount + $scope.followingCount;
+        $scope.followersPourcent = parseInt(($scope.followersCount / $scope.total) * 100) + 1;
+        $scope.followingPourcent = parseInt(($scope.followingCount / $scope.total) * 100) + 1;
+        
         $scope.username = response.data.username;
         $scope.currentUser = response.data;
         $scope.bio= response.data.bio;
-        $('#profilePicture').html('<img src="' + response.data.profile_picture + '" alt="' + response.data.username + '">');
+        $scope.profilePicture = response.data.profile_picture;
         fffStorage.setUser(response.data);
     }).error(function(data, status){
         alert(status);
@@ -25,11 +30,10 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     }
     
     $scope.showUsers();
-    $scope.followers = [];
-    $scope.followings = [];
     
-    $scope.progressBar = function(pourcent){        
-        if(pourcent >= 100){
+    $scope.progressBar = function(pourcent){
+        console.log(pourcent);
+        if(pourcent >= 99){
             setTimeout(function() {
                 $('.progress-bar').parent().addClass('hide');
                 $('.progress-bar').attr({ style : 'width: 0%'});
@@ -45,7 +49,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
                 if(follower.id){
                     $scope.followers.push(follower);                    
                     $scope.followersCounter++;
-                    $scope.progressBar(parseInt(($scope.followersCounter / ($scope.followersCount * 2)) * 100));
+                    $scope.progressBar(parseInt(($scope.followersCounter / ($scope.followersCount * (100 / $scope.followersPourcent))) * 100));
                 }                
             });
             fffStorage.setFollowers($scope.followers);
@@ -63,12 +67,12 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
             angular.forEach(response.data, function(follower, key) {
                 if(follower.username){
                     follower.follows = 'btn-success';
-                    $scope.followings.push(follower);        
-                    fffStorage.setFollowing($scope.followings);
-                    $scope.followingsCounter++;
-                    $scope.progressBar(parseInt(($scope.followingsCounter / ($scope.followingsCount * 2)) * 100) + 50);
+                    $scope.following.push(follower);                            
+                    $scope.followingCounter++;
+                    $scope.progressBar(parseInt(($scope.followingCounter / ($scope.followingCount * (100 / $scope.followingPourcent))) * 100) + $scope.followersPourcent);
                 }
-            });            
+            });
+            fffStorage.setFollowing($scope.following);
         }).then(function(response){
             if(response.data.pagination.next_url){
                 $scope.getFollowing(response.data.pagination.next_url);
@@ -83,9 +87,9 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     $scope.setYouNotFollowingBack = function(){
         var users = [];
         var followers = [];
-        angular.forEach(fffStorage.getFollowers(), function(follower, keyf) {
+        angular.forEach($scope.followers, function(follower, keyf) {
             var present = false;
-            angular.forEach(fffStorage.getFollowing(), function(following, key) {
+            angular.forEach($scope.following, function(following, key) {
                 if(follower.id == following.id)
                     present = true;
             });
@@ -119,9 +123,9 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         $('.progress-bar').parent().removeClass('hide');
         $scope.users = [];
         $scope.followers = [];
-        $scope.followings = [];
+        $scope.following = [];
         $scope.followersCounter = 0;
-        $scope.followingsCounter = 0;
+        $scope.followingCounter = 0;
         
         $scope.getFollowers(APISettings.apiBaseUri + '/users/' + $scope.currentUser.id +'/followed-by?access_token='+fffStorage.getToken());
         
