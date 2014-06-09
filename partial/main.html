@@ -46,7 +46,7 @@
             <tr ng-repeat="user in users track by $index">
                 <td><img src="{{user.profile_picture}}" alt="{{user.username}}" width="75"></td>
                 <td>
-                    <h3>{{user.username}}</h3>
+                    <h3><a target="_blank" href="http://instagram.com/{{user.username}}">{{user.username}}</a></h3>
                     <small>{{user.full_name}}</small>
                 </td>
                 <td><button class="btn {{user.follows}}">+</button></td>
