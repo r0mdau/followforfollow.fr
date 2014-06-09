@@ -63,14 +63,8 @@ fffControllers.factory('fffStorage', function () {
 			return JSON.parse(localStorage.getItem(keys.areNotFollowingBack) || '[]');
 		},
 		
-		addAreNotFollowingBack: function (user) {
-			var users = JSON.parse(localStorage.getItem(keys.areNotFollowingBack) || '[]');
-			users.push(user);
+		setAreNotFollowingBack: function (users) {
 			localStorage.setItem(keys.areNotFollowingBack, JSON.stringify(users));
-		},
-		
-		clearAreNotFollowingBack: function () {
-			localStorage.removeItem(keys.areNotFollowingBack);
 		},
 		
 		removeAll: function () {
