@@ -1,115 +1,105 @@
 'use strict';
 
 
-fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInstagram', 'fffStorage', 'fffWorker',
-  function ($scope, $location, fffInstagram, fffStorage, fffWorker) {    
+fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInstagram', 'fffStorage',
+  function ($scope, $location, fffInstagram, fffStorage) {    
     $scope.signOut = function(){
         fffStorage.removeAll();
         $location.path("/home");
     }    
        
     fffInstagram.getUser().success(function(response) {
+        $scope.followersCount = response.data.counts.followed_by;
+        $scope.followingsCount = response.data.counts.follows;
         $scope.username = response.data.username;
         $scope.currentUser = response.data;
         $scope.bio= response.data.bio;
         $('#profilePicture').html('<img src="' + response.data.profile_picture + '" alt="' + response.data.username + '">');
         fffStorage.setUser(response.data);
+    }).error(function(data, status){
+        alert(status);
     });
     
     $scope.users = fffStorage.getFollowers();
     $scope.followers = [];
-    $scope.follower = '';
-    $scope.followersCount = 0;    
-    $scope.youNotFollowingBacks = [];
+    $scope.followings = [];
     
-    $scope.followingCount = 0;
-    $scope.followingCounter = 0;
-    $scope.areNotFollowingBacks = [];
-    
-    function progressBar(pourcent){        
-        if(pourcent >= 99){
+    $scope.progressBar = function(pourcent){        
+        if(pourcent >= 100){
             setTimeout(function() {
                 $('.progress-bar').parent().addClass('hide');
-                $('.progress-bar').attr({ style : 'width: 0%'})
-            }, 2000);            
+                $('.progress-bar').attr({ style : 'width: 0%'});
+            }, 1000);            
         }else{
-            $('.progress-bar').attr({ style : 'width:' + pourcent + '%'})
+            $('.progress-bar').attr({ style : 'width:' + pourcent + '%'});
         }
     }
-
     
-    $scope.$watch('follower', function() {
-        progressBar(parseInt(($scope.followers.length / ($scope.followersCount * 2)) * 100));
-        $scope.followers.push($scope.follower);        
-        if($scope.followers.length == $scope.followersCount){
-            $scope.users = $scope.followers;
-            fffStorage.setFollowers($scope.followers);
-        }
-    });
+    $scope.getFollowers = function(uri){
+        fffInstagram.getFromApi(uri).success(function(response){            
+            angular.forEach(response.data, function(follower, key) {
+                if(follower.id){
+                    fffInstagram.getRelationship(follower).success(function(response){
+                        follower.follows = 'btn-danger';
+                        if(response.data.outgoing_status == 'follows'){
+                            follower.follows = 'btn-success';
+                        }
+                        var tab = [];
+                        angular.forEach(fffStorage.getFollowers(), function(user, key) {
+                            if(user.id == follower.id)
+                                user.follows = follower.follows;
+                            tab.push(user);
+                        });
+                        fffStorage.setFollowers(tab);
+                    });
+                    $scope.followers.push(follower);
+                    $scope.users.push(follower);
+                    fffStorage.setFollowers($scope.followers);
+                    $scope.followersCounter++;
+                    $scope.progressBar(parseInt(($scope.followersCounter / ($scope.followersCount * 2)) * 100));
+                }
+            });            
+        }).then(function(response){
+            if(response.data.pagination.next_url){
+                $scope.getFollowers(response.data.pagination.next_url);
+            }
+        });
+    }
     
-    $scope.$watch('followingCounter', function() {
-        progressBar(parseInt(($scope.followingCounter / ($scope.followingCount * 2)) * 100) + 50);        
-    });
-    
-    $scope.$watch('youNotFollowingBack', function() {
-        if($scope.youNotFollowingBack === Object($scope.youNotFollowingBack)){
-            $scope.youNotFollowingBacks.push($scope.youNotFollowingBack);
-            fffStorage.setYouNotFollowingBack($scope.youNotFollowingBacks);
-        }        
-    });
-    
-    $scope.$watch('areNotFollowingBack', function() {
-        if($scope.areNotFollowingBack === Object($scope.areNotFollowingBack)){
-            //progressBar(parseInt(($scope.followers.length / $scope.followersCount * 2) * 100));
-            $scope.areNotFollowingBacks.push($scope.areNotFollowingBack);
-            fffStorage.setAreNotFollowingBack($scope.areNotFollowingBacks);
-        }        
-    });
+    $scope.getFollowing = function(uri){
+        fffInstagram.getFromApi(uri).success(function(response){            
+            angular.forEach(response.data, function(follower, key) {
+                if(follower.username){
+                    follower.follows = 'btn-success';
+                    $scope.followings.push(follower);        
+                    fffStorage.setFollowing($scope.followings);
+                    $scope.followingsCounter++;
+                    $scope.progressBar(parseInt(($scope.followingsCounter / ($scope.followingsCount * 2)) * 100) + 50);
+                }
+            });            
+        }).then(function(response){
+            if(response.data.pagination.next_url){
+                $scope.getFollowing(response.data.pagination.next_url);
+            }
+        });
+    }
     
     $scope.refreshStatsInStorage = function(){
         $('.progress-bar').parent().removeClass('hide');
+        $scope.users = [];
         $scope.followers = [];
-        fffStorage.clearYouNotFollowingBack();
+        $scope.followings = [];
+        $scope.followersCounter = 0;
+        $scope.followingsCounter = 0;
         
-        fffWorker.setFollowers($scope.currentUser.id).then(function(){
-            $scope.followersCount = fffStorage.getFollowers().length;
-            
-            angular.forEach(fffStorage.getFollowers(), function(follower, key) {
-                fffInstagram.getRelationship(follower.id).success(function(response){
-                    var status = 'btn-danger'
-                    if(response.data.outgoing_status == 'follows')
-                        status = 'btn-success';
-                    
-                    follower.follows = status;
-                    $scope.follower = follower;
-                    if(status == 'btn-danger'){
-                        $scope.youNotFollowingBack = follower;
-                    }
-                });
-            });
-        });
-        
-        fffWorker.setFollowing($scope.currentUser.id).then(function(){
-            $scope.followingCount = fffStorage.getFollowing().length;
-            
-            angular.forEach(fffStorage.getFollowing(), function(following, key) {
-                fffInstagram.getRelationship(following.id).success(function(response){
-                    var status = 'btn-success'
-                    if(response.data.incoming_status == 'followed_by')
-                        status = 'btn-danger';
-                    
-                    following.follows = status;
-                    if(status == 'btn-success'){
-                        $scope.areNotFollowingBack = following;
-                    }
-                    $scope.followingCounter++;
-                });
-            });
-        });
+        $scope.getFollowers(APISettings.apiBaseUri + '/users/' + $scope.currentUser.id +'/followed-by?access_token='+fffStorage.getToken());
+        $scope.getFollowing(APISettings.apiBaseUri + '/users/' + $scope.currentUser.id +'/follows?access_token='+fffStorage.getToken());
+        $scope.setAreNotFollowingBack();
         
         $('#mainContent li').removeClass('active');
         $('#showFollowers').addClass('active');
     }
+
     
     $scope.showFollowers = function(){
         $scope.users = fffStorage.getFollowers();
@@ -117,10 +107,41 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     $scope.showFollowing = function(){
         $scope.users = fffStorage.getFollowing();
     }
-    $scope.showYouNotFollowingBack = function(){
-        $scope.users = fffStorage.getYouNotFollowingBack();
-    }
     $scope.showAreNotFollowingBack = function(){
-        $scope.users = fffStorage.getAreNotFollowingBack();
+        if(fffStorage.getAreNotFollowingBack().length == 0)
+            $scope.setAreNotFollowingBack();
+        else
+            $scope.users = fffStorage.getAreNotFollowingBack();
     }
-  }]);
+    $scope.showYouNotFollowingBack = function(){
+        if(fffStorage.getYouNotFollowingBack().length == 0)
+            $scope.setYouNotFollowingBack();
+        else
+            $scope.users = fffStorage.getYouNotFollowingBack();
+    }
+    
+    $scope.setYouNotFollowingBack = function(){
+        $scope.tempUsers = [];
+        angular.forEach(fffStorage.getFollowers(), function(follower, key) {
+            if(follower.follows == 'btn-danger')
+                $scope.tempUsers.push(follower);
+        });
+        fffStorage.setYouNotFollowingBack($scope.tempUsers);
+        $scope.users = $scope.tempUsers;
+    };
+    
+    $scope.setAreNotFollowingBack = function(){
+        $('.progress-bar').parent().removeClass('hide');
+        $scope.areNotFollowingBackCounter = 0;
+        angular.forEach(fffStorage.getFollowing(), function(follower, key) {
+            fffInstagram.getRelationship(follower).success(function(response){
+                follower.follows = 'btn-success';
+                if(response.data.incoming_status != 'followed_by'){
+                    fffStorage.addAreNotFollowingBack(follower);
+                }
+                $scope.areNotFollowingBackCounter++;
+               $scope.progressBar(parseInt(($scope.areNotFollowingBackCounter / $scope.followingsCount) * 100));
+            });
+        });
+    };
+}]);

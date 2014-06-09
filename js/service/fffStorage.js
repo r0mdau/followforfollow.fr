@@ -38,6 +38,11 @@ fffControllers.factory('fffStorage', function () {
 			localStorage.setItem(keys.followers, JSON.stringify(followers));
 		},
 		
+		addFollowers: function (followers) {
+			var users = JSON.parse(localStorage.getItem(keys.followers) || '[]').concat(followers);
+			localStorage.setItem(keys.followers, JSON.stringify(users));
+		},
+		
 		getFollowing: function () {
 			return JSON.parse(localStorage.getItem(keys.following) || '[]');
 		},
@@ -50,20 +55,18 @@ fffControllers.factory('fffStorage', function () {
 			return JSON.parse(localStorage.getItem(keys.youNotFollowingBack) || '[]');
 		},
 		
-		setYouNotFollowingBack: function (user) {
-			localStorage.setItem(keys.youNotFollowingBack, JSON.stringify(user));
-		},
-		
-		clearYouNotFollowingBack: function () {
-			localStorage.removeItem(keys.youNotFollowingBack);
+		setYouNotFollowingBack: function (users) {
+			localStorage.setItem(keys.youNotFollowingBack, JSON.stringify(users));
 		},
 		
 		getAreNotFollowingBack: function (){
 			return JSON.parse(localStorage.getItem(keys.areNotFollowingBack) || '[]');
 		},
 		
-		setAreNotFollowingBack: function (user) {
-			localStorage.setItem(keys.areNotFollowingBack, JSON.stringify(user));
+		addAreNotFollowingBack: function (user) {
+			var users = JSON.parse(localStorage.getItem(keys.areNotFollowingBack) || '[]');
+			users.push(user);
+			localStorage.setItem(keys.areNotFollowingBack, JSON.stringify(users));
 		},
 		
 		clearAreNotFollowingBack: function () {

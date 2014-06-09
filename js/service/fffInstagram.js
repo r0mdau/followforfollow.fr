@@ -19,9 +19,7 @@ fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
 				return $http.jsonp(url, config);
 			},
 			
-			'getFollowers' : function(userId){
-				var request = '/users/' + userId +'/followed-by?access_token='+fffStorage.getToken();
-				var url = base + request;
+			'getFromApi' : function(url){
 				var config = {
 					'params': {
 						'client_id': clientId,
@@ -31,20 +29,8 @@ fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
 				return $http.jsonp(url, config);
 			},
 			
-			'getFollowing' : function(userId){
-				var request = '/users/' + userId +'/follows?access_token='+fffStorage.getToken();
-				var url = base + request;
-				var config = {
-					'params': {
-						'client_id': clientId,
-						'callback': 'JSON_CALLBACK'
-					}
-				};
-				return $http.jsonp(url, config);
-			},
-			
-			'getRelationship' : function(userId){
-				var request = '/users/' + userId +'/relationship?access_token='+fffStorage.getToken();
+			'getRelationship' : function(user){
+				var request = '/users/' + user.id +'/relationship?access_token='+fffStorage.getToken();
 				var url = base + request;
 				var config = {
 					'params': {

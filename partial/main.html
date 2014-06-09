@@ -43,7 +43,7 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            <tr ng-repeat="user in users">
+            <tr ng-repeat="user in users track by $index">
                 <td><img src="{{user.profile_picture}}" alt="{{user.username}}" width="75"></td>
                 <td>
                     <h3>{{user.username}}</h3>
