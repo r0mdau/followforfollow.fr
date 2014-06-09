@@ -131,6 +131,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     };
     
     $scope.setAreNotFollowingBack = function(){
+        $scope.users = [];
         $('.progress-bar').parent().removeClass('hide');
         $scope.areNotFollowingBackCounter = 0;
         angular.forEach(fffStorage.getFollowing(), function(follower, key) {
@@ -138,6 +139,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
                 follower.follows = 'btn-success';
                 if(response.data.incoming_status != 'followed_by'){
                     fffStorage.addAreNotFollowingBack(follower);
+                    $scope.users.push(follower);
                 }
                 $scope.areNotFollowingBackCounter++;
                $scope.progressBar(parseInt(($scope.areNotFollowingBackCounter / $scope.followingsCount) * 100));
