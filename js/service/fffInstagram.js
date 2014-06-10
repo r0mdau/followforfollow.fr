@@ -7,7 +7,7 @@ fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
 		var clientId = APISettings.clientId;
 		
 		return {
-			'getUser': function() {
+			getUser: function() {
 				var request = '/users/self?access_token='+fffStorage.getToken();
 				var url = base + request;
 				var config = {
@@ -19,7 +19,7 @@ fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
 				return $http.jsonp(url, config);
 			},
 			
-			'getFromApi' : function(url){
+			getFromApi : function(url){
 				var config = {
 					'params': {
 						'client_id': clientId,
@@ -29,7 +29,7 @@ fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
 				return $http.jsonp(url, config);
 			},
 			
-			'getRelationship' : function(user){
+			getRelationship : function(user){
 				var request = '/users/' + user.id +'/relationship?access_token='+fffStorage.getToken();
 				var url = base + request;
 				var config = {
