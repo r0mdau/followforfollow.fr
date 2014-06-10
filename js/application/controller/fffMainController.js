@@ -32,7 +32,6 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     $scope.showUsers();
     
     $scope.progressBar = function(pourcent){
-        console.log(pourcent);
         if(pourcent >= 99){
             setTimeout(function() {
                 $('.progress-bar').parent().addClass('hide');

@@ -27,18 +27,6 @@ fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
 					}
 				};
 				return $http.jsonp(url, config);
-			},
-			
-			getRelationship : function(user){
-				var request = '/users/' + user.id +'/relationship?access_token='+fffStorage.getToken();
-				var url = base + request;
-				var config = {
-					'params': {
-						'client_id': clientId,
-						'callback': 'JSON_CALLBACK'
-					}
-				};
-				return $http.jsonp(url, config);
 			}
 		};
 	}
