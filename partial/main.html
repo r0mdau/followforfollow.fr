@@ -49,7 +49,7 @@
                     <h3><a target="_blank" href="http://instagram.com/{{user.username}}">{{user.username}}</a></h3>
                     <small>{{user.full_name}}</small>
                 </td>
-                <td><button class="btn {{user.follows}}">+</button></td>
+                <td><button id="u{{user.id}}" class="btn {{user.follows}}" ng-click="modifyRelationship(user.id, user.follows)">+</button></td>
             </tr>
         </table>
     </div>

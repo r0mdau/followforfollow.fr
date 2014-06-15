@@ -132,6 +132,34 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         $('#showFollowers').addClass('active');
     }
     
+    $scope.modifyRelationship = function(id, follows){        
+        function changeFollows(data){
+            var followers = [];
+            angular.forEach(fffStorage.getFollowers(), function(follower, key) {
+                if(follower.id === id)
+                    follower.follows = data;
+                followers.push(follower);
+            });
+            $scope.followers = followers;
+            fffStorage.setFollowers(followers);
+            
+            var following = [];
+            angular.forEach(fffStorage.getFollowing(), function(follower, key) {
+                if(follower.id === id)
+                    follower.follows = data;
+                following.push(follower);
+            });
+            $scope.following = following;
+            fffStorage.setFollowing(following);
+            
+            $('#u'+id).removeClass('btn-success').removeClass('btn-danger').addClass(data);
+        }
+        var action = 'follow';
+        if(follows == 'btn-success')
+            action = 'unfollow';
+        fffInstagram.modifyRelationShip(id, action, changeFollows);
+    }
+    
     $scope.showFollowers = function(){
         $scope.users = fffStorage.getFollowers();
     }

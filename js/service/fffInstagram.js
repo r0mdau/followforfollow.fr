@@ -27,6 +27,19 @@ fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
 					}
 				};
 				return $http.jsonp(url, config);
+			},
+			
+			modifyRelationShip : function (id, action, callback){
+				var request = '/users/' + id +'/relationship?access_token='+fffStorage.getToken();
+				var url = base + request;
+				return $http({
+					method : 'POST',
+					url : 'ajax/modifyRelationship.php',
+					data : 'id='+ id + '&action='+action+'&token='+fffStorage.getToken(),
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				}).success(function(response){
+					callback(response);
+				});
 			}
 		};
 	}
