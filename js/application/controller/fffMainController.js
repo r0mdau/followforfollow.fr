@@ -46,7 +46,13 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         fffInstagram.getFromApi(uri).success(function(response){            
             angular.forEach(response.data, function(follower, key) {
                 if(follower.id){
-                    $scope.followers.push(follower);                    
+                    var user = {
+                        profile_picture : follower.profile_picture,
+                        username : follower.username,
+                        full_name : follower.full_name,
+                        id : follower.id
+                    };
+                    $scope.followers.push(user);                    
                     $scope.followersCounter++;
                     $scope.progressBar(parseInt(($scope.followersCounter / ($scope.followersCount * (100 / $scope.followersPourcent))) * 100));
                 }                
@@ -65,8 +71,14 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         fffInstagram.getFromApi(uri).success(function(response){            
             angular.forEach(response.data, function(follower, key) {
                 if(follower.username){
-                    follower.follows = 'btn-success';
-                    $scope.following.push(follower);                            
+                    var user = {
+                        profile_picture : follower.profile_picture,
+                        username : follower.username,
+                        full_name : follower.full_name,
+                        id : follower.id,
+                        follows : 'btn-success'
+                    };
+                    $scope.following.push(user);
                     $scope.followingCounter++;
                     $scope.progressBar(parseInt(($scope.followingCounter / ($scope.followingCount * (100 / $scope.followingPourcent))) * 100) + $scope.followersPourcent);
                 }
@@ -79,6 +91,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
                 $scope.setYouNotFollowingBack();
                 $scope.showUsers();
                 $scope.setAreNotFollowingBack();
+                $scope.progressBar(100);
             }
         });
     }
