@@ -6,7 +6,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     $scope.signOut = function(){
         fffStorage.removeAll();
         $location.path("/home");
-    }    
+    };
        
     fffInstagram.getUser().success(function(response) {
         $scope.followersCount = parseInt(response.data.counts.followed_by);
@@ -22,12 +22,12 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         $scope.profilePicture = response.data.profile_picture;
         fffStorage.setUser(response.data);
     }).error(function(data, status){
-        alert(status);
+        console.log(status);
     });
     
     $scope.showUsers = function(){
         $scope.users = fffStorage.getFollowers();
-    }
+    };
     
     $scope.showUsers();
     
@@ -40,7 +40,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         }else{
             $('.progress-bar').attr({ style : 'width:' + pourcent + '%'});
         }
-    }
+    };
     
     $scope.getFollowers = function(uri){
         fffInstagram.getFromApi(uri).success(function(response){            
@@ -65,7 +65,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
                 $scope.getFollowing(APISettings.apiBaseUri + '/users/' + $scope.currentUser.id +'/follows?access_token='+fffStorage.getToken());
             }
         });
-    }
+    };
     
     $scope.getFollowing = function(uri){
         fffInstagram.getFromApi(uri).success(function(response){            
@@ -94,7 +94,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
                 $scope.progressBar(100);
             }
         });
-    }
+    };
     
     $scope.setYouNotFollowingBack = function(){
         var users = [];
@@ -143,7 +143,7 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         
         $('#mainContent li').removeClass('active');
         $('#showFollowers').addClass('active');
-    }
+    };
     
     $scope.modifyRelationship = function(id, follows){        
         function changeFollows(data){
@@ -171,17 +171,17 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         if(follows == 'btn-success')
             action = 'unfollow';
         fffInstagram.modifyRelationShip(id, action, changeFollows);
-    }
+    };
     
     $scope.showFollowers = function(){
         $scope.users = fffStorage.getFollowers();
-    }
+    };
     $scope.showFollowing = function(){
         $scope.users = fffStorage.getFollowing();
-    }
+    };
     $scope.showAreNotFollowingBack = function(){
         $scope.users = fffStorage.getAreNotFollowingBack();
-    }
+    };
     $scope.showYouNotFollowingBack = function(){
         $scope.users = fffStorage.getYouNotFollowingBack();
     }

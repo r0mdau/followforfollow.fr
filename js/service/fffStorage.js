@@ -11,7 +11,7 @@ fffControllers.factory('fffStorage', function () {
 	  followersLost : 'followersLost',
 	  areNotFollowingBack : 'areNotFollowingBack',
 	  youNotFollowingBack : 'youNotFollowingBack'
-	}
+	};
 
 	return {
 		getToken: function () {
@@ -36,11 +36,6 @@ fffControllers.factory('fffStorage', function () {
 
 		setFollowers: function (followers) {
 			localStorage.setItem(keys.followers, JSON.stringify(followers));
-		},
-		
-		addFollowers: function (followers) {
-			var users = JSON.parse(localStorage.getItem(keys.followers) || '[]').concat(followers);
-			localStorage.setItem(keys.followers, JSON.stringify(users));
 		},
 		
 		getFollowing: function () {
@@ -71,15 +66,6 @@ fffControllers.factory('fffStorage', function () {
 			angular.forEach(keys, function(value, key) {
 				localStorage.removeItem(value);
 			});
-		},
-		
-		removeStats: function () {
-			localStorage.removeItem(keys.followers);
-			localStorage.removeItem(keys.following);
-			localStorage.removeItem(keys.followersGained);
-			localStorage.removeItem(keys.followersLost);
-			localStorage.removeItem(keys.areNotFollowingBack);
-			localStorage.removeItem(keys.youNotFollowingBack);
 		}
 	};
 });
