@@ -1,6 +1,6 @@
-<div class="row page-header">
+<div class="row page-header visible-md visible-lg">
     <div class="col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3">
-        <div id="profilePicture">
+        <div>
             <img src="{{profilePicture}}" alt="Profile picture of {{username}}">
         </div>
     </div>
@@ -11,10 +11,21 @@
     </div>
     <div class="col-sm-2 col-md-2" style="word-wrap: break-word">
         <h3>
-            <small>{{bio}}</small>        
+            <small>{{bio}}</small>
         </h3>
         <button class='btn btn-large btn-danger' ng-click="signOut()">Sign out</button>
     </div>
+</div>
+
+<div class="row page-header visible-xs visible-sm text-center">
+    <div>
+        <img src="{{profilePicture}}" alt="Profile picture of {{username}}">
+    </div>
+    <h3>
+        Hello {{username}}<br>
+        <small>{{bio}}</small>
+    </h3>
+    <button class='btn btn-large btn-danger' ng-click="signOut()">Sign out</button>
 </div>
 
 <div class="row page-header">
@@ -43,9 +54,10 @@
                 </tr>
             </thead>
             <tr ng-repeat="user in users track by $index">
-                <td><img src="{{user.profile_picture}}" alt="{{user.username}}" width="75"></td>
+                <td><img src="{{user.profile_picture}}" alt="{{user.username}}" style="width:75%"></td>
                 <td>
-                    <h3><a target="_blank" href="http://instagram.com/{{user.username}}">{{user.username}}</a></h3>
+                    <h3 class="visible-md visible-lg"><a target="_blank" href="http://instagram.com/{{user.username}}">{{user.username}}</a></h3>
+                    <p class="visible-xs visible-sm bold"><a target="_blank" href="http://instagram.com/{{user.username}}">{{user.username}}</a></p>
                     <small>{{user.full_name}}</small>
                 </td>
                 <td><button id="u{{user.id}}" class="btn {{user.follows}}" ng-click="modifyRelationship(user.id, user.follows)">+</button></td>
