@@ -133,14 +133,17 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
     
     $scope.refreshStatsInStorage = function(){
         $('.progress-bar').parent().removeClass('hide');
+        $('#showFollowers').parent().removeClass('hide');
+        $('#tableContent').removeClass('hide');
         $scope.users = [];
         $scope.followers = [];
         $scope.following = [];
         $scope.followersCounter = 0;
         $scope.followingCounter = 0;
-        
+
         $scope.getFollowers(APISettings.apiBaseUri + '/users/' + $scope.currentUser.id +'/followed-by?access_token='+fffStorage.getToken());
-        
+
+        $('#mainContent > button').html('Refresh');
         $('#mainContent li').removeClass('active');
         $('#showFollowers').addClass('active');
     };
