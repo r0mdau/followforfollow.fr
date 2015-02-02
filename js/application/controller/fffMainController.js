@@ -7,6 +7,13 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
         fffStorage.removeAll();
         $location.path("/home");
     };
+
+      if(fffStorage.hasData()){
+          $scope.hide = '';
+          $('#mainContent > button').html('Refresh');
+      }else{
+          $scope.hide = 'hide';
+      }
        
     fffInstagram.getUser().success(function(response) {
         $scope.followersCount = parseInt(response.data.counts.followed_by);

@@ -7,13 +7,15 @@ fffControllers.factory('fffStorage', function () {
 	  user : 'user',	
 	  followers : 'followers',
 	  following : 'following',
-	  followersGained : 'followersGained',
-	  followersLost : 'followersLost',
 	  areNotFollowingBack : 'areNotFollowingBack',
 	  youNotFollowingBack : 'youNotFollowingBack'
 	};
 
 	return {
+		hasData: function (){
+			return localStorage.getItem(keys.followers) !== null;
+		},
+
 		getToken: function () {
 			return JSON.parse(localStorage.getItem(keys.token) || '[]');
 		},
