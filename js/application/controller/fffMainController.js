@@ -57,9 +57,12 @@ fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInsta
           $('#tableContent').removeClass('hide');
           $('#showFollowers').addClass('active');
 
-          $('html, body').animate({
+          $('body').animate({
               scrollTop:$('#focusOnUsers').offset().top
           }, 'slow');
+          setTimeout(function() {
+              $('body').stop();
+          }, 1000);
       };
     
     $scope.getFollowers = function(uri){
