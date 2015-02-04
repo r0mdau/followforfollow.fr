@@ -81,22 +81,22 @@
                 </div>
             </div>
         </div>
-    <script>
-        $('document').ready(function(){
-            $('.about').click(function(){
-                if($(this).children().hasClass('glyphicon-menu-right')) {
-                    $(this).children().removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
-                    $('#about').removeClass('visible-lg').removeClass('visible-md');
-                    $('body').animate({
-                        scrollTop: $('#about').offset().top
-                    }, 'slow');
-                }else{
-                    $(this).children().removeClass('glyphicon-menu-down').addClass('glyphicon-menu-right');
-                    $('#about').addClass('visible-lg').addClass('visible-md');
-                }
+        <script>
+            $('document').ready(function(){
+                $('.about').click(function(){
+                    if($(this).children().hasClass('glyphicon-menu-right')) {
+                        $(this).children().removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
+                        $('#about').removeClass('visible-lg').removeClass('visible-md');
+                        $('body').animate({
+                            scrollTop: $('#about').offset().top
+                        }, 'slow');
+                    }else{
+                        $(this).children().removeClass('glyphicon-menu-down').addClass('glyphicon-menu-right');
+                        $('#about').addClass('visible-lg').addClass('visible-md');
+                    }
+                });
             });
-        });
-    </script>
+        </script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
