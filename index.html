@@ -84,11 +84,16 @@
     <script>
         $('document').ready(function(){
             $('.about').click(function(){
-                $(this).children().removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
-                $('#about').removeClass('visible-lg').removeClass('visible-md');
-                $('html, body').animate({
-                    scrollTop:$('#about').offset().top
-                }, 'slow');
+                if($(this).children().hasClass('glyphicon-menu-right')) {
+                    $(this).children().removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
+                    $('#about').removeClass('visible-lg').removeClass('visible-md');
+                    $('body').animate({
+                        scrollTop: $('#about').offset().top
+                    }, 'slow');
+                }else{
+                    $(this).children().removeClass('glyphicon-menu-down').addClass('glyphicon-menu-right');
+                    $('#about').addClass('visible-lg').addClass('visible-md');
+                }
             });
         });
     </script>
