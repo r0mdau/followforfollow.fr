@@ -1,8 +1,7 @@
 'use strict';
 
 var fffApplication = angular.module('fffApplication', [
-  'ngRoute',
-  'fffControllers'
+  'ngRoute'
 ]);
  
 fffApplication.config(['$routeProvider',

@@ -1,10 +1,13 @@
 'use strict';
 
 
-fffControllers.controller('fffMainController', ['$scope', '$location', 'fffInstagram', 'fffStorage',
-  function ($scope, $location, fffInstagram, fffStorage) {    
-    $scope.signOut = function(){
+fffApplication.controller('fffMainController', ['$scope', '$location', 'fffInstagram', 'fffStorage', 'fffShared',
+  function ($scope, $location, fffInstagram, fffStorage, fffShared) {
+
+      fffShared.setSignedOut = false;
+      $scope.signOut = function(){
         fffStorage.removeAll();
+        fffShared.signedOut = true;
         $location.path("/home");
     };
 

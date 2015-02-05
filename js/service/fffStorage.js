@@ -1,7 +1,7 @@
 'use strict';
 
 
-fffControllers.factory('fffStorage', function () {
+fffApplication.factory('fffStorage', function () {
 	var keys = {
 	  token : 'token',
 	  user : 'user',	

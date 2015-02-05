@@ -1,7 +1,7 @@
 'use strict';
 
 
-fffControllers.factory('fffInstagram', ['$http', 'fffStorage',
+fffApplication.factory('fffInstagram', ['$http', 'fffStorage',
 	function($http, fffStorage) {
 		var base = APISettings.apiBaseUri;
 		var clientId = APISettings.clientId;
