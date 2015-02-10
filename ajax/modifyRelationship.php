@@ -12,8 +12,8 @@ $token = $_POST['token'];
 
 $instagram->setAccessToken($token);
 
-$instagram->modifyRelationship($_POST['action'], (int)$_POST['id']);
-if($_POST['action'] == 'follow')
-    echo 'btn-success';
-else
-    echo 'btn-danger';
+$result = $instagram->modifyRelationship($_POST['action'], (int)$_POST['id']);
+echo json_encode(array(
+    'code' => $result->meta->code,
+    'action' => $_POST['action']
+));

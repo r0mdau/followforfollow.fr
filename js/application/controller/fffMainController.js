@@ -171,25 +171,17 @@ fffApplication.controller('fffMainController', ['$scope', '$location', 'fffInsta
     
     $scope.modifyRelationship = function(id, follows){        
         function changeFollows(data){
-            var followers = [];
-            angular.forEach(fffStorage.getFollowers(), function(follower, key) {
-                if(follower.id === id)
-                    follower.follows = data;
-                followers.push(follower);
-            });
-            $scope.followers = followers;
-            fffStorage.setFollowers(followers);
-            
-            var following = [];
-            angular.forEach(fffStorage.getFollowing(), function(follower, key) {
-                if(follower.id === id)
-                    follower.follows = data;
-                following.push(follower);
-            });
-            $scope.following = following;
-            fffStorage.setFollowing(following);
-            
-            $('#u'+id).removeClass('btn-success').removeClass('btn-danger').addClass(data);
+            var button = $('#u' + id);
+            if(data.code == 200) {
+                var cssClass = "btn-danger";
+                if(data.action == "follow") cssClass = "btn-success";
+                button.removeClass('btn-success').removeClass('btn-danger').addClass(cssClass);
+            }else{
+                button.popover({
+                    content : 'Wait 1 hour',
+                    placement : 'left'
+                }).popover('show');
+            }
         }
         var action = 'follow';
         if(follows == 'btn-success')

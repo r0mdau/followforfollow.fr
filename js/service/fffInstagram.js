@@ -30,8 +30,6 @@ fffApplication.factory('fffInstagram', ['$http', 'fffStorage',
 			},
 			
 			modifyRelationShip : function (id, action, callback){
-				var request = '/users/' + id +'/relationship?access_token='+fffStorage.getToken();
-				var url = base + request;
 				return $http({
 					method : 'POST',
 					url : 'ajax/modifyRelationship.php',
