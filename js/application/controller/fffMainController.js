@@ -4,7 +4,6 @@
 fffApplication.controller('fffMainController', ['$scope', '$location', 'fffInstagram', 'fffStorage', 'fffShared',
   function ($scope, $location, fffInstagram, fffStorage, fffShared) {
 
-      fffShared.setSignedOut = false;
       $scope.signOut = function(){
         fffStorage.removeAll();
         fffShared.signedOut = true;
@@ -52,13 +51,11 @@ fffApplication.controller('fffMainController', ['$scope', '$location', 'fffInsta
     };
 
       $scope.doThingsAfterLoading = function(){
-          $('.progress-bar').parent().addClass('hide');
-          $('.progress-bar').attr({ style : 'width: 0%'});
+          $('.progress-bar').attr({ style : 'width: 0%'}).parent().addClass('hide');
           $('#mainContent > button').html('Refresh');
           $('#mainContent li').removeClass('active');
-          $('#showFollowers').parent().removeClass('hide');
           $('#tableContent').removeClass('hide');
-          $('#showFollowers').addClass('active');
+          $('#showFollowers').addClass('active').parent().removeClass('hide');
 
           $('body').animate({
               scrollTop:$('#focusOnUsers').offset().top
