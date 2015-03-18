@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" ng-app="fffApplication">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>FollowforFollow</title>
+        <meta name="description" content="Free instagram followers : you follow, they follow you back. No subscription, very easy !">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/fff.css">
+        <link rel="icon" href="img/favicon.ico">
+            
+        <script src="js/vendor/modernizr-2.7.1.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="//code.angularjs.org/1.3.11/angular.min.js"></script>
+        <script src="//code.angularjs.org/1.3.11/angular-route.min.js"></script>
+        <script src="//code.angularjs.org/1.3.11/angular-resource.min.js"></script>
+        
+        <script src="js/application/fffApplication.js"></script>
+        <script src="js/application/controller/fffHomeController.js"></script>
+        <script src="js/application/controller/fffTokenController.js"></script>
+        <script src="js/application/controller/fffMainController.js"></script>
+        <script src="js/service/fffShared.js"></script>
+        <script src="js/service/fffStorage.js"></script>
+        <script src="js/service/fffInstagram.js"></script>
+        
+        <script src="settings.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container-fluid">
+            <div class="row">                
+                <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+                    <img id="logo" style="width:100%" src="img/followforfollow.png" alt="followforfollow logo">
+                </div>
+            </div>
+            <div ng-controller="fffHomeController">                
+                <div ng-view></div>
+            </div>
+            <div class="row visible-xs visible-sm">
+                <div class="col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3" style="cursor:pointer; height:50px">
+                    <button type="button" class="btn btn-default about" style="width:100%">
+                        About <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div id="about" class="row visible-lg visible-md" style="word-wrap: break-word">
+                <div class="col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3">
+                    <h3>Why this app ?</h3>
+                    <p>
+                        I was bored to use non free apps on Android or iOs. So I have built this app 100% free to see who is following you or not in your followers list.
+                        <br>Enjoy it and have fun !
+                    </p>
+                </div>
+                <div class="col-sm-2 col-md-2">
+                    <h3>Troubleshooting</h3>
+                    <a href="https://twitter.com/intent/tweet?screen_name=r0mdau&text=followforfollow.fr%20%3A%20" class="twitter-mention-button" data-related="r0mdau">
+                        Tweet to @r0mdau
+                    </a>
+                    <script>
+                        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+                    </script>
+                    <br>
+                    <a href="https://github.com/r0mdau/followforfollow.fr/issues/new" title="troubleshooting github" target="_blank">
+                        Developers here !
+                    </a>
+                </div>
+                <div class="col-sm-2 col-md-2">
+                    <h3>Social</h3>
+                    <a href="https://twitter.com/r0mdau" class="twitter-follow-button" data-show-count="false">
+                        Follow @r0mdau
+                    </a><br>
+                    <script>
+                        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+                    </script>
+                    <iframe src="http://ghbtns.com/github-btn.html?user=r0mdau&type=follow" allowtransparency="true" frameborder="0" scrolling="0" width="132" height="20"></iframe>
+                    <br>
+                    <a href="http://instagram.com/r0mdau?ref=badge" class="ig-b- ig-b-16"><img src="//badges.instagram.com/static/images/ig-badge-16.png" alt="Instagram" />&nbsp;&copy;r0mdau</a>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('document').ready(function(){
+                $('.about').click(function(){
+                    if($(this).children().hasClass('glyphicon-menu-right')) {
+                        $(this).children().removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
+                        $('#about').removeClass('visible-lg').removeClass('visible-md');
+                        $('body').animate({
+                            scrollTop: $('#about').offset().top
+                        }, 'slow');
+                    }else{
+                        $(this).children().removeClass('glyphicon-menu-down').addClass('glyphicon-menu-right');
+                        $('#about').addClass('visible-lg').addClass('visible-md');
+                    }
+                });
+            });
+        </script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-19376185-13', 'followforfollow.fr');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>
