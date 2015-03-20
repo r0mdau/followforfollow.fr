@@ -30,9 +30,7 @@
                 <img id="logo" style="width:100%" src="images/followforfollow.png" alt="followforfollow logo">
             </div>
         </div>
-        <div ng-controller="fffHomeController">
-            <div ng-view></div>
-        </div>
+        <div ng-view=""></div>
         <div class="row visible-xs visible-sm">
             <div class="col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3" style="cursor:pointer; height:50px">
                 <button type="button" class="btn btn-default about" style="width:100%">
@@ -109,8 +107,8 @@
 <script src="scripts/controllers/home.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/token.js"></script>
+<script src="scripts/directives/userProfile.js"></script>
 <script src="scripts/services/instagram.js"></script>
-<script src="scripts/services/shared.js"></script>
 <script src="scripts/services/storage.js"></script>
 <script src="settings.js"></script>
 <!-- endbuild -->

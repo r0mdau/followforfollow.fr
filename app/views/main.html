@@ -1,32 +1,4 @@
-<div class="row page-header visible-md visible-lg">
-    <div class="col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3">
-        <div>
-            <img src="{{profilePicture}}" alt="Profile picture of {{username}}">
-        </div>
-    </div>
-    <div class="col-sm-2 col-md-2" style="word-wrap: break-word">
-        <h1 style="margin-top: 15%">
-            Hello {{username}}
-        </h1>
-    </div>
-    <div class="col-sm-2 col-md-2" style="word-wrap: break-word">
-        <h3>
-            <small>{{bio}}</small>
-        </h3>
-        <button class='btn btn-large btn-danger' ng-click="signOut()">Sign out</button>
-    </div>
-</div>
-
-<div class="row page-header visible-xs visible-sm text-center">
-    <div>
-        <img src="{{profilePicture}}" alt="Profile picture of {{username}}">
-    </div>
-    <h3>
-        Hello {{username}}<br>
-        <small>{{bio}}</small>
-    </h3>
-    <button class='btn btn-large btn-danger' ng-click="signOut()">Sign out</button>
-</div>
+<user-profile></user-profile>
 
 <div class="row">
     <div id="mainContent" class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">

@@ -1,24 +1,24 @@
 'use strict';
 
-var fffApplication = angular.module('followforfollow', [
+var app = angular.module('followforfollow', [
     'ngAnimate',
     'ngMessages',
     'ngResource',
     'ngRoute'
 ]).config(['$routeProvider',
-    function($routeProvider) {
+    function ($routeProvider) {
         $routeProvider.
             when('/home', {
                 templateUrl: 'views/home.html',
-                controller: 'fffHomeController'
+                controller: 'HomeController'
             }).
             when('/token/:accessToken', {
                 templateUrl: 'views/home.html',
-                controller: 'fffTokenController'
+                controller: 'TokenController'
             }).
             when('/main', {
                 templateUrl: 'views/main.html',
-                controller: 'fffMainController'
+                controller: 'MainController'
             }).
             otherwise({
                 redirectTo: '/home'
