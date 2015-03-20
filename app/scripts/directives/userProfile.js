@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('userProfile', ['Storage', 'User', function (Storage, User) {
+app.directive('userProfile', ['$location', 'Storage', 'User', function ($location, Storage, User) {
     return {
         restrict: 'E',
         templateUrl: 'views/userProfile.html',
@@ -11,6 +11,11 @@ app.directive('userProfile', ['Storage', 'User', function (Storage, User) {
             }else{
                 this.user = Storage.getUser();
             }
+
+            this.signOut = function(){
+                User.deleteSession();
+                $location.path('/home');
+            };
         }
     };
 }]);

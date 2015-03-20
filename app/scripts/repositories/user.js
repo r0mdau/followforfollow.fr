@@ -12,4 +12,8 @@ app.service('User', ['Instagram', 'Storage', function (Instagram, Storage) {
         });
         return user;
     };
+
+    this.deleteSession = function(){
+        Storage.removeAll();
+    };
 }]);
