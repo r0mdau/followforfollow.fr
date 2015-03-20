@@ -1,14 +1,14 @@
 'use strict';
 
 
-app.factory('fffInstagram', ['$http', 'fffStorage',
-    function($http, fffStorage) {
+app.factory('Instagram', ['$http', 'Storage',
+    function($http, Storage) {
         var base = APISettings.apiBaseUri;
         var clientId = APISettings.clientId;
 
         return {
             getUser: function() {
-                var request = '/users/self?access_token='+fffStorage.getToken();
+                var request = '/users/self?access_token='+Storage.getToken();
                 var url = base + request;
                 var config = {
                     'params': {
@@ -33,7 +33,7 @@ app.factory('fffInstagram', ['$http', 'fffStorage',
                 return $http({
                     method : 'POST',
                     url : 'ajax/modifyRelationship.php',
-                    data : 'id='+ id + '&action='+action+'&token='+fffStorage.getToken(),
+                    data : 'id='+ id + '&action='+action+'&token='+Storage.getToken(),
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(response){
                     callback(response);

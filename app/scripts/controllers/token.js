@@ -1,9 +1,9 @@
 'use strict';
 
-app.controller('TokenController', ['$routeParams', '$location', 'fffStorage',
-    function ($routeParams, $location, fffStorage) {
+app.controller('TokenController', ['$routeParams', '$location', 'Storage',
+    function ($routeParams, $location, Storage) {
         if ($routeParams.accessToken.length > 0) {
-            fffStorage.setToken($routeParams.accessToken);
+            Storage.setToken($routeParams.accessToken);
             $location.path("/main");
         }
     }
