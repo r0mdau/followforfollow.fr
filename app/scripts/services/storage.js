@@ -12,8 +12,8 @@ app.factory('Storage', function () {
 	};
 
 	return {
-		hasData: function (){
-			return localStorage.getItem(keys.followers) !== null;
+		hasUser: function (){
+			return localStorage.getItem(keys.user) !== null;
 		},
 
 		getToken: function () {
