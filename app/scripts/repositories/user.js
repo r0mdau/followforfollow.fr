@@ -3,13 +3,13 @@
 app.service('User', ['Instagram', 'Storage', function (Instagram, Storage) {
     this.getProfile = function () {
         var user = this;
-        Instagram.getUser().success(function (response) {
-            user.username = response.data.username;
-            user.currentUser = response.data;
-            user.bio = response.data.bio;
-            user.profile_picture = response.data.profile_picture;
-            Storage.setUser(user.currentUser);
+        Instagram.getUser(Storage.getToken(), function(response){
+            user.id = response.id;
+            user.username = response.username;
+            user.profile_picture = response.profile_picture;
+            user.bio = response.bio;
         });
+
         return user;
     };
 
