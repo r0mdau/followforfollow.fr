@@ -9,12 +9,14 @@ describe('Instagram service', function () {
         Instagram = $injector.get('Instagram');
         $httpBackend = $injector.get('$httpBackend');
         $httpBackend.whenJSONP("https://api.instagram.com/v1/users/self?access_token=romaindauby&callback=JSON_CALLBACK&client_id=419658066049438eb0bbd3cd7d726b9a")
-            .respond({ data : {
-                id: "1234",
-                username: "r0mdau",
-                profile_picture: "http://www.romaindauby.fr/picture.jpg",
-                bio: "cool account"
-            }});
+            .respond({
+                data: {
+                    id: "1234",
+                    username: "r0mdau",
+                    profile_picture: "http://www.romaindauby.fr/picture.jpg",
+                    bio: "cool account"
+                }
+            });
     }));
 
     afterEach(function () {
@@ -23,7 +25,7 @@ describe('Instagram service', function () {
     });
 
     it('should return user properties', function () {
-        Instagram.getUser('romaindauby', function(response){
+        Instagram.getUser('romaindauby', function (response) {
             user = response;
         });
         $httpBackend.flush();
