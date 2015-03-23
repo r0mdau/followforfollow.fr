@@ -7,9 +7,10 @@ app.factory('Instagram', ['$http', function ($http) {
 
     return {
         getUser: function (token, callback) {
-            var url = apiBaseUri + '/users/self?access_token=' + token;
+            var url = apiBaseUri + '/users/self';
             var config = {
                 'params': {
+                    'access_token': token,
                     'client_id': clientId,
                     'callback': 'JSON_CALLBACK'
                 }
