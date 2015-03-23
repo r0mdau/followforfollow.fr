@@ -3,7 +3,8 @@
 app.service('User', ['Instagram', 'Storage', function (Instagram, Storage) {
     this.getProfile = function () {
         var user = this;
-        Instagram.getUser(Storage.getToken(), function(response){
+
+        Instagram.getUser(Storage.getToken(), function (response) {
             user.id = response.id;
             user.username = response.username;
             user.profile_picture = response.profile_picture;
@@ -13,7 +14,7 @@ app.service('User', ['Instagram', 'Storage', function (Instagram, Storage) {
         return user;
     };
 
-    this.deleteSession = function(){
+    this.deleteSession = function () {
         Storage.removeAll();
     };
 }]);
